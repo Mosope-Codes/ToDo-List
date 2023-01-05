@@ -1,0 +1,28 @@
+<%- include("./partials/header") %>
+
+    <nav class="navbar bg-light">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="#">ToDo aPP</a>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2>Edit Todo</h2>
+
+        <ul class="list-group my-5">
+
+            <% todo.forEach(todos => { %>
+                <% if (todos._id == _id) { %>
+                <li class="list-group-item">
+                    <form action="/update/todo/<%= todos._id %>", method="POST">
+                    <input type="text", value="<%= todos.todo %>", name="todo" class="form-control"> <input type="submit" value="Confirm" class="btn btn-sm btn-primary mx-2">
+                    <a href="/" class="cancel">Cancel</a>
+                </form>
+            </li>
+            <% } %>                
+            <% }) %>           
+        </ul>
+    </div>
+
+
+<%- include("./partials/footer") %>

@@ -7,7 +7,8 @@ router.get("/", async(req, res) => {
     res.render("index", {todo: allTodo})
 })
 
-.get("/delete/todo/:_id", (req, res) => {
+//detete todo route
+router.get("/delete/todo/:_id", (req, res) => {
     const { _id } = req.params;
     Todo.deleteOne({ _id })
       .then(() => {
@@ -17,6 +18,21 @@ router.get("/", async(req, res) => {
       .catch((err) => console.log(err));
 });
 
+
+//update a todo route
+router.get("/update/todo/:_id", (req, res) => {
+  const { _id } = req.params;
+  Todo.find({}, (err, todo) => {
+    res.render("edit.ejs", { todo: todo, _id: _id })
+  });
+})
+router.post("/update/todo/:_id", (req, res) => {
+  const { _id } = req.params;
+  Todo.findByIdAndUpdate(_id, { todo: req.body.todo}, err =>{
+    if(err) return res.send(500, err);
+    res.redirect("/");
+  })
+})
 
 
 
